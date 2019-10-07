@@ -1322,7 +1322,7 @@
             this.label20.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label20.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label20.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label20.Location = new System.Drawing.Point(918, 284);
+            this.label20.Location = new System.Drawing.Point(1011, 284);
             this.label20.MaximumSize = new System.Drawing.Size(140, 50);
             this.label20.MinimumSize = new System.Drawing.Size(180, 50);
             this.label20.Name = "label20";
