@@ -1347,7 +1347,7 @@
             this.label39.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label39.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label39.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label39.Location = new System.Drawing.Point(831, 230);
+            this.label39.Location = new System.Drawing.Point(921, 230);
             this.label39.MaximumSize = new System.Drawing.Size(140, 50);
             this.label39.MinimumSize = new System.Drawing.Size(180, 50);
             this.label39.Name = "label39";
