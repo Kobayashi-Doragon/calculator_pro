@@ -1297,7 +1297,7 @@
             this.label19.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label19.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label19.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label19.Location = new System.Drawing.Point(949, 338);
+            this.label19.Location = new System.Drawing.Point(831, 338);
             this.label19.MaximumSize = new System.Drawing.Size(140, 50);
             this.label19.MinimumSize = new System.Drawing.Size(180, 50);
             this.label19.Name = "label19";
