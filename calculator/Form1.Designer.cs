@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            //
+            Formula formula1 = new Formula();
+            Memory memort1 = new Memory();
+            //
+
+
             this.formula_box = new System.Windows.Forms.TextBox();
             this.answer_box = new System.Windows.Forms.Label();
             this.q_key = new System.Windows.Forms.Button();
@@ -134,16 +140,16 @@
             this.m_cmd = new System.Windows.Forms.Label();
             this.m_index = new System.Windows.Forms.Label();
             this.m_key = new System.Windows.Forms.Button();
-            this.mamory4_num = new System.Windows.Forms.Label();
             this.mamory4_but = new System.Windows.Forms.Button();
-            this.mamory3_num = new System.Windows.Forms.Label();
             this.mamory3_but = new System.Windows.Forms.Button();
-            this.mamory2_num = new System.Windows.Forms.Label();
             this.mamory2_but = new System.Windows.Forms.Button();
-            this.mamory1_num = new System.Windows.Forms.Label();
             this.memory1_but = new System.Windows.Forms.Button();
             this.search_result = new System.Windows.Forms.ComboBox();
             this.search_box = new System.Windows.Forms.TextBox();
+            this.memory1_box = new System.Windows.Forms.TextBox();
+            this.memory2_box = new System.Windows.Forms.TextBox();
+            this.memory3_box = new System.Windows.Forms.TextBox();
+            this.memory4_box = new System.Windows.Forms.TextBox();
             this.Q_Box.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -176,13 +182,14 @@
             // 
             this.formula_box.BackColor = System.Drawing.Color.WhiteSmoke;
             this.formula_box.Font = new System.Drawing.Font("MS UI Gothic", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.formula_box.ForeColor = System.Drawing.Color.DarkGray;
+            this.formula_box.ForeColor = System.Drawing.Color.Black;
             this.formula_box.Location = new System.Drawing.Point(29, 24);
             this.formula_box.Name = "formula_box";
             this.formula_box.Size = new System.Drawing.Size(998, 55);
             this.formula_box.TabIndex = 0;
-            this.formula_box.Text = "式を入力してください";
+            this.formula_box.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formula_box_KeyDown);
             this.formula_box.MouseUp += new System.Windows.Forms.MouseEventHandler(this.formula_box_MouseUp);
+            this.formula_box.Text = formula1.getFormula_text();
             // 
             // answer_box
             // 
@@ -1314,115 +1321,53 @@
             this.m_key.UseVisualStyleBackColor = false;
             this.m_key.Click += new System.EventHandler(this.m_key_Click);
             // 
-            // mamory4_num
-            // 
-            this.mamory4_num.AutoSize = true;
-            this.mamory4_num.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.mamory4_num.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mamory4_num.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.mamory4_num.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.mamory4_num.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.mamory4_num.Location = new System.Drawing.Point(831, 338);
-            this.mamory4_num.MaximumSize = new System.Drawing.Size(140, 50);
-            this.mamory4_num.MinimumSize = new System.Drawing.Size(180, 50);
-            this.mamory4_num.Name = "mamory4_num";
-            this.mamory4_num.Size = new System.Drawing.Size(180, 50);
-            this.mamory4_num.TabIndex = 40;
-            this.mamory4_num.Text = "300";
-            this.mamory4_num.Click += new System.EventHandler(this.mamory4_num_Click);
-            // 
             // mamory4_but
             // 
-            this.mamory4_but.Location = new System.Drawing.Point(757, 338);
+            this.mamory4_but.Location = new System.Drawing.Point(765, 345);
             this.mamory4_but.Name = "mamory4_but";
-            this.mamory4_but.Size = new System.Drawing.Size(68, 50);
+            this.mamory4_but.Size = new System.Drawing.Size(60, 50);
             this.mamory4_but.TabIndex = 39;
             this.mamory4_but.Text = "M4";
             this.mamory4_but.UseVisualStyleBackColor = true;
-            // 
-            // mamory3_num
-            // 
-            this.mamory3_num.AutoSize = true;
-            this.mamory3_num.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.mamory3_num.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mamory3_num.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.mamory3_num.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.mamory3_num.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.mamory3_num.Location = new System.Drawing.Point(831, 284);
-            this.mamory3_num.MaximumSize = new System.Drawing.Size(140, 50);
-            this.mamory3_num.MinimumSize = new System.Drawing.Size(180, 50);
-            this.mamory3_num.Name = "mamory3_num";
-            this.mamory3_num.Size = new System.Drawing.Size(180, 50);
-            this.mamory3_num.TabIndex = 38;
-            this.mamory3_num.Text = "300";
-            this.mamory3_num.Click += new System.EventHandler(this.mamory3_num_Click);
+            this.mamory4_but.Click += new System.EventHandler(this.mamory4_but_Click);
             // 
             // mamory3_but
             // 
-            this.mamory3_but.Location = new System.Drawing.Point(757, 284);
+            this.mamory3_but.Location = new System.Drawing.Point(765, 288);
             this.mamory3_but.Name = "mamory3_but";
-            this.mamory3_but.Size = new System.Drawing.Size(68, 48);
+            this.mamory3_but.Size = new System.Drawing.Size(60, 50);
             this.mamory3_but.TabIndex = 37;
             this.mamory3_but.Text = "M3";
             this.mamory3_but.UseVisualStyleBackColor = true;
-            // 
-            // mamory2_num
-            // 
-            this.mamory2_num.AutoSize = true;
-            this.mamory2_num.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.mamory2_num.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mamory2_num.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.mamory2_num.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.mamory2_num.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.mamory2_num.Location = new System.Drawing.Point(831, 230);
-            this.mamory2_num.MaximumSize = new System.Drawing.Size(140, 50);
-            this.mamory2_num.MinimumSize = new System.Drawing.Size(180, 50);
-            this.mamory2_num.Name = "mamory2_num";
-            this.mamory2_num.Size = new System.Drawing.Size(180, 50);
-            this.mamory2_num.TabIndex = 36;
-            this.mamory2_num.Text = "300";
-            this.mamory2_num.Click += new System.EventHandler(this.mamory2_num_Click);
+            this.mamory3_but.Click += new System.EventHandler(this.mamory3_but_Click);
             // 
             // mamory2_but
             // 
-            this.mamory2_but.Location = new System.Drawing.Point(757, 230);
+            this.mamory2_but.Location = new System.Drawing.Point(765, 232);
             this.mamory2_but.Name = "mamory2_but";
-            this.mamory2_but.Size = new System.Drawing.Size(68, 48);
+            this.mamory2_but.Size = new System.Drawing.Size(60, 50);
             this.mamory2_but.TabIndex = 35;
             this.mamory2_but.Text = "M2";
             this.mamory2_but.UseVisualStyleBackColor = true;
-            // 
-            // mamory1_num
-            // 
-            this.mamory1_num.AutoSize = true;
-            this.mamory1_num.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.mamory1_num.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mamory1_num.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.mamory1_num.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.mamory1_num.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.mamory1_num.Location = new System.Drawing.Point(832, 176);
-            this.mamory1_num.MaximumSize = new System.Drawing.Size(180, 50);
-            this.mamory1_num.MinimumSize = new System.Drawing.Size(180, 50);
-            this.mamory1_num.Name = "mamory1_num";
-            this.mamory1_num.Size = new System.Drawing.Size(180, 50);
-            this.mamory1_num.TabIndex = 34;
-            this.mamory1_num.Text = "300";
-            this.mamory1_num.Click += new System.EventHandler(this.mamory1_num_Click);
+            this.mamory2_but.Click += new System.EventHandler(this.mamory2_but_Click);
             // 
             // memory1_but
             // 
-            this.memory1_but.Location = new System.Drawing.Point(757, 176);
+            this.memory1_but.Location = new System.Drawing.Point(765, 176);
+            this.memory1_but.MinimumSize = new System.Drawing.Size(60, 50);
             this.memory1_but.Name = "memory1_but";
-            this.memory1_but.Size = new System.Drawing.Size(68, 48);
+            this.memory1_but.Size = new System.Drawing.Size(60, 50);
             this.memory1_but.TabIndex = 33;
             this.memory1_but.Text = "M1";
             this.memory1_but.UseVisualStyleBackColor = true;
+            this.memory1_but.Click += new System.EventHandler(this.memory1_but_Click);
             // 
             // search_result
             // 
             this.search_result.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.search_result.FormattingEnabled = true;
             this.search_result.Location = new System.Drawing.Point(1047, 94);
+            this.search_result.MinimumSize = new System.Drawing.Size(270, 0);
             this.search_result.Name = "search_result";
             this.search_result.Size = new System.Drawing.Size(270, 29);
             this.search_result.TabIndex = 42;
@@ -1440,20 +1385,65 @@
             this.search_box.Text = "検索内容";
             this.search_box.MouseUp += new System.Windows.Forms.MouseEventHandler(this.search_box_MouseUp);
             // 
+            // memory1_box
+            // 
+            this.memory1_box.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.memory1_box.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.memory1_box.ForeColor = System.Drawing.Color.Black;
+            this.memory1_box.Location = new System.Drawing.Point(837, 176);
+            this.memory1_box.MinimumSize = new System.Drawing.Size(190, 50);
+            this.memory1_box.Name = "memory1_box";
+            this.memory1_box.Size = new System.Drawing.Size(190, 50);
+            this.memory1_box.TabIndex = 44;
+            // 
+            // memory2_box
+            // 
+            this.memory2_box.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.memory2_box.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.memory2_box.ForeColor = System.Drawing.Color.Black;
+            this.memory2_box.Location = new System.Drawing.Point(837, 232);
+            this.memory2_box.MaximumSize = new System.Drawing.Size(190, 50);
+            this.memory2_box.MinimumSize = new System.Drawing.Size(190, 50);
+            this.memory2_box.Name = "memory2_box";
+            this.memory2_box.Size = new System.Drawing.Size(190, 50);
+            this.memory2_box.TabIndex = 45;
+            // 
+            // memory3_box
+            // 
+            this.memory3_box.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.memory3_box.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.memory3_box.ForeColor = System.Drawing.Color.Black;
+            this.memory3_box.Location = new System.Drawing.Point(837, 288);
+            this.memory3_box.MinimumSize = new System.Drawing.Size(190, 50);
+            this.memory3_box.Name = "memory3_box";
+            this.memory3_box.Size = new System.Drawing.Size(190, 50);
+            this.memory3_box.TabIndex = 46;
+            // 
+            // memory4_box
+            // 
+            this.memory4_box.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.memory4_box.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.memory4_box.ForeColor = System.Drawing.Color.Black;
+            this.memory4_box.Location = new System.Drawing.Point(837, 345);
+            this.memory4_box.MinimumSize = new System.Drawing.Size(190, 50);
+            this.memory4_box.Name = "memory4_box";
+            this.memory4_box.Size = new System.Drawing.Size(190, 50);
+            this.memory4_box.TabIndex = 47;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1340, 402);
+            this.Controls.Add(this.memory4_box);
+            this.Controls.Add(this.memory3_box);
+            this.Controls.Add(this.memory2_box);
+            this.Controls.Add(this.memory1_box);
             this.Controls.Add(this.search_box);
             this.Controls.Add(this.search_result);
-            this.Controls.Add(this.mamory4_num);
             this.Controls.Add(this.mamory4_but);
-            this.Controls.Add(this.mamory3_num);
             this.Controls.Add(this.mamory3_but);
-            this.Controls.Add(this.mamory2_num);
             this.Controls.Add(this.mamory2_but);
-            this.Controls.Add(this.mamory1_num);
             this.Controls.Add(this.memory1_but);
             this.Controls.Add(this.panel27);
             this.Controls.Add(this.panel26);
@@ -1542,6 +1532,10 @@
             this.PerformLayout();
 
         }
+
+        
+
+
 
         #endregion
 
@@ -1650,17 +1644,17 @@
         private System.Windows.Forms.Label m_cmd;
         private System.Windows.Forms.Label m_index;
         private System.Windows.Forms.Button m_key;
-        protected internal System.Windows.Forms.Label mamory4_num;
         private System.Windows.Forms.Button mamory4_but;
-        protected internal System.Windows.Forms.Label mamory3_num;
         private System.Windows.Forms.Button mamory3_but;
-        protected internal System.Windows.Forms.Label mamory2_num;
         private System.Windows.Forms.Button mamory2_but;
-        protected internal System.Windows.Forms.Label mamory1_num;
         private System.Windows.Forms.Button memory1_but;
         private System.Windows.Forms.Button i_key;
         private System.Windows.Forms.ComboBox search_result;
         private System.Windows.Forms.TextBox search_box;
+        private System.Windows.Forms.TextBox memory1_box;
+        private System.Windows.Forms.TextBox memory2_box;
+        private System.Windows.Forms.TextBox memory3_box;
+        private System.Windows.Forms.TextBox memory4_box;
     }
 }
 

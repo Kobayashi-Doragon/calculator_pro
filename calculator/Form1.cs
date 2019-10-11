@@ -14,6 +14,7 @@ namespace calculator
     {
         public Form1()
         {
+            
             InitializeComponent();
         }
 
@@ -64,7 +65,7 @@ namespace calculator
 
         private void p_key_Click(object sender, EventArgs e)
         {
-
+            formula_box.AppendText("π");
         }
 
         private void a_key_Click(object sender, EventArgs e)
@@ -147,26 +148,6 @@ namespace calculator
 
         }
 
-        private void mamory1_num_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mamory2_num_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mamory3_num_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mamory4_num_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void search_box_MouseUp(object sender, MouseEventArgs e)
         {
             search_box.ResetText();
@@ -175,8 +156,39 @@ namespace calculator
 
         private void formula_box_MouseUp(object sender, MouseEventArgs e)
         {
-            formula_box.ResetText();
-            formula_box.ForeColor = Color.Black;
+           /// formula_box.ResetText();
+           // formula_box.ForeColor = Color.Black;
+        }
+
+        private void memory1_but_Click(object sender, EventArgs e)
+        {
+            formula_box.AppendText(memory1_box.Text);
+        }
+
+        private void mamory2_but_Click(object sender, EventArgs e)
+        {
+            formula_box.AppendText(memory2_box.Text);
+        }
+
+        private void mamory3_but_Click(object sender, EventArgs e)
+        {
+            formula_box.AppendText(memory3_box.Text);
+        }
+
+        private void mamory4_but_Click(object sender, EventArgs e)
+        {
+            formula_box.AppendText(memory4_box.Text);
+        }
+
+        private void formula_box_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode <= Keys.Z && e.KeyCode >= Keys.A) {
+                int m = (int)e.KeyCode + 32;
+                char key = (char)m;
+                Button b1 = p_key;
+                b1.PerformClick();
+                //formula_box.Text = formula_box.Text.Substring(0,formula_box.Text.Length-1);
+            }
         }
     }
 }
