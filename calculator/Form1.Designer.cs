@@ -1333,13 +1333,19 @@
             // 
             // mamory3_but
             // 
-            this.mamory3_but.Location = new System.Drawing.Point(765, 288);
-            this.mamory3_but.Name = "mamory3_but";
-            this.mamory3_but.Size = new System.Drawing.Size(60, 50);
-            this.mamory3_but.TabIndex = 37;
-            this.mamory3_but.Text = "M3";
-            this.mamory3_but.UseVisualStyleBackColor = true;
-            this.mamory3_but.Click += new System.EventHandler(this.mamory3_but_Click);
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label19.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.label19.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label19.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label19.Location = new System.Drawing.Point(1053, 338);
+            this.label19.MaximumSize = new System.Drawing.Size(140, 50);
+            this.label19.MinimumSize = new System.Drawing.Size(180, 50);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(180, 50);
+            this.label19.TabIndex = 40;
+            this.label19.Text = "300";
             // 
             // mamory2_but
             // 
