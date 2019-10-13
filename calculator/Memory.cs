@@ -17,17 +17,17 @@ namespace calculator
                 memory[i] = "0";
         }
 
-        void memory_save(int number,String data)
+        public void memory_save(int number,String data)
         {
         }
-        String memory_read(int number) {
-            return "a";
+        public String memory_read(int number) {
+            return "0";
         }
-        void memory_delete(int number)
+        public void memory_delete(int number)
         {
             
         }
-        bool memory_check(int number)
+        public bool memory_check(int number)
         {
             return this.memory[number] == null;
         }

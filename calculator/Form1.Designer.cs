@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            //
-            Formula formula1 = new Formula();
-            Memory memort1 = new Memory();
-            //
+            this.formula1 = new Formula();
+            this.memory1 = new Memory();
 
 
             this.formula_box = new System.Windows.Forms.TextBox();
@@ -141,7 +139,6 @@
             this.m_index = new System.Windows.Forms.Label();
             this.m_key = new System.Windows.Forms.Button();
             this.mamory4_but = new System.Windows.Forms.Button();
-            this.mamory3_but = new System.Windows.Forms.Button();
             this.mamory2_but = new System.Windows.Forms.Button();
             this.memory1_but = new System.Windows.Forms.Button();
             this.search_result = new System.Windows.Forms.ComboBox();
@@ -150,6 +147,7 @@
             this.memory2_box = new System.Windows.Forms.TextBox();
             this.memory3_box = new System.Windows.Forms.TextBox();
             this.memory4_box = new System.Windows.Forms.TextBox();
+            this.memory3_but = new System.Windows.Forms.Button();
             this.Q_Box.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -187,9 +185,8 @@
             this.formula_box.Name = "formula_box";
             this.formula_box.Size = new System.Drawing.Size(998, 55);
             this.formula_box.TabIndex = 0;
-            this.formula_box.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formula_box_KeyDown);
+            this.formula_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.formula_box_KeyPress);
             this.formula_box.MouseUp += new System.Windows.Forms.MouseEventHandler(this.formula_box_MouseUp);
-            this.formula_box.Text = formula1.getFormula_text();
             // 
             // answer_box
             // 
@@ -1331,22 +1328,6 @@
             this.mamory4_but.UseVisualStyleBackColor = true;
             this.mamory4_but.Click += new System.EventHandler(this.mamory4_but_Click);
             // 
-            // mamory3_but
-            // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label19.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label19.Font = new System.Drawing.Font("MS UI Gothic", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label19.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label19.Location = new System.Drawing.Point(1053, 338);
-            this.label19.MaximumSize = new System.Drawing.Size(140, 50);
-            this.label19.MinimumSize = new System.Drawing.Size(180, 50);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(180, 50);
-            this.label19.TabIndex = 40;
-            this.label19.Text = "300";
-            // 
             // mamory2_but
             // 
             this.mamory2_but.Location = new System.Drawing.Point(765, 232);
@@ -1370,6 +1351,7 @@
             // 
             // search_result
             // 
+            this.search_result.BackColor = System.Drawing.Color.WhiteSmoke;
             this.search_result.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.search_result.FormattingEnabled = true;
             this.search_result.Location = new System.Drawing.Point(1047, 94);
@@ -1378,6 +1360,7 @@
             this.search_result.Size = new System.Drawing.Size(270, 29);
             this.search_result.TabIndex = 42;
             this.search_result.Text = "検索結果";
+            this.search_result.SelectedIndexChanged += new System.EventHandler(this.search_result_SelectedIndexChanged);
             // 
             // search_box
             // 
@@ -1389,6 +1372,7 @@
             this.search_box.Size = new System.Drawing.Size(270, 55);
             this.search_box.TabIndex = 43;
             this.search_box.Text = "検索内容";
+            this.search_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.search_box_KeyPress);
             this.search_box.MouseUp += new System.Windows.Forms.MouseEventHandler(this.search_box_MouseUp);
             // 
             // memory1_box
@@ -1399,8 +1383,9 @@
             this.memory1_box.Location = new System.Drawing.Point(837, 176);
             this.memory1_box.MinimumSize = new System.Drawing.Size(190, 50);
             this.memory1_box.Name = "memory1_box";
-            this.memory1_box.Size = new System.Drawing.Size(190, 50);
+            this.memory1_box.Size = new System.Drawing.Size(190, 44);
             this.memory1_box.TabIndex = 44;
+            this.memory1_box.Text = "0";
             // 
             // memory2_box
             // 
@@ -1411,8 +1396,9 @@
             this.memory2_box.MaximumSize = new System.Drawing.Size(190, 50);
             this.memory2_box.MinimumSize = new System.Drawing.Size(190, 50);
             this.memory2_box.Name = "memory2_box";
-            this.memory2_box.Size = new System.Drawing.Size(190, 50);
+            this.memory2_box.Size = new System.Drawing.Size(190, 44);
             this.memory2_box.TabIndex = 45;
+            this.memory2_box.Text = "0";
             // 
             // memory3_box
             // 
@@ -1422,8 +1408,9 @@
             this.memory3_box.Location = new System.Drawing.Point(837, 288);
             this.memory3_box.MinimumSize = new System.Drawing.Size(190, 50);
             this.memory3_box.Name = "memory3_box";
-            this.memory3_box.Size = new System.Drawing.Size(190, 50);
+            this.memory3_box.Size = new System.Drawing.Size(190, 44);
             this.memory3_box.TabIndex = 46;
+            this.memory3_box.Text = "0";
             // 
             // memory4_box
             // 
@@ -1433,14 +1420,25 @@
             this.memory4_box.Location = new System.Drawing.Point(837, 345);
             this.memory4_box.MinimumSize = new System.Drawing.Size(190, 50);
             this.memory4_box.Name = "memory4_box";
-            this.memory4_box.Size = new System.Drawing.Size(190, 50);
+            this.memory4_box.Size = new System.Drawing.Size(190, 44);
             this.memory4_box.TabIndex = 47;
+            this.memory4_box.Text = "0";
+            // 
+            // memory3_but
+            // 
+            this.memory3_but.Location = new System.Drawing.Point(765, 288);
+            this.memory3_but.Name = "memory3_but";
+            this.memory3_but.Size = new System.Drawing.Size(60, 50);
+            this.memory3_but.TabIndex = 48;
+            this.memory3_but.Text = "M3";
+            this.memory3_but.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1340, 402);
+            this.Controls.Add(this.memory3_but);
             this.Controls.Add(this.memory4_box);
             this.Controls.Add(this.memory3_box);
             this.Controls.Add(this.memory2_box);
@@ -1448,7 +1446,6 @@
             this.Controls.Add(this.search_box);
             this.Controls.Add(this.search_result);
             this.Controls.Add(this.mamory4_but);
-            this.Controls.Add(this.mamory3_but);
             this.Controls.Add(this.mamory2_but);
             this.Controls.Add(this.memory1_but);
             this.Controls.Add(this.panel27);
@@ -1482,6 +1479,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.TransparencyKey = System.Drawing.Color.Transparent;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Q_Box.ResumeLayout(false);
             this.Q_Box.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1538,8 +1536,6 @@
             this.PerformLayout();
 
         }
-
-        
 
 
 
@@ -1651,7 +1647,6 @@
         private System.Windows.Forms.Label m_index;
         private System.Windows.Forms.Button m_key;
         private System.Windows.Forms.Button mamory4_but;
-        private System.Windows.Forms.Button mamory3_but;
         private System.Windows.Forms.Button mamory2_but;
         private System.Windows.Forms.Button memory1_but;
         private System.Windows.Forms.Button i_key;
@@ -1661,6 +1656,9 @@
         private System.Windows.Forms.TextBox memory2_box;
         private System.Windows.Forms.TextBox memory3_box;
         private System.Windows.Forms.TextBox memory4_box;
+        private System.Windows.Forms.Button memory3_but;
+
+        
     }
 }
 

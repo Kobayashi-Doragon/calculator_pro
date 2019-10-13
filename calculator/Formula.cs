@@ -15,14 +15,14 @@ namespace calculator
             this.formula_text ="";
         }
 
-        bool formula_check()//クラス内メソッドなので引数いらない説
+        public bool formula_check()//クラス内メソッドなので引数いらない説
         {
             return true;
         }
-        int calculation() {
+        public int calculation() {
             return 0;
         }
-        void formula_delete() {
+        public void formula_delete() {
             this.formula_text = "";
         }
         public string getFormula_text() {
