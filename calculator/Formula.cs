@@ -21,6 +21,29 @@ namespace calculator
         }
         public int calculation() {
             return 0;
+            
+        }
+
+        List convertRPN()
+        {
+            List tokens = new List<string>();
+            List rpn = new List<string>();
+            Stack st = new Stack<string>();
+
+            tokens = formula_text.Split(' ');
+
+            for(int i = 0; i < tokens.Count; i++)
+            {
+                if(int.TryParse(tokens[0],out int x))//---------------------
+                {
+
+                }
+            }
+        }
+
+        int calcRPN(List lis)
+        {
+
         }
         public void formula_delete() {
             this.formula_text = "";
