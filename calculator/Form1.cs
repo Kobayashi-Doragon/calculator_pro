@@ -287,7 +287,7 @@ namespace calculator
             {
                 formula_box.Text = formula_box.Text.Insert(selection, "cos ( ");
                 formula_box.Text = formula_box.Text.Insert(selection+ selection_length+6, ") ");
-                formula_box.SelectionStart = selection +selection_length+ 8;
+                formula_box.SelectionStart = selection +selection_length+ 9;
             }
             else{
                 formula_box.Text = formula_box.Text.Insert(selection, "cos ( ) ");
@@ -330,22 +330,6 @@ namespace calculator
 
         private void memory1_but_Click(object sender, EventArgs e)
         {
-            int index = 0;
-            memory1.memory_save(index, memory1_box.Text);
-            if (memory1.memory_check(index)) {//メモリに中身がある場合
-                int selection = formula_box.SelectionStart;
-                int selection_length = formula_box.SelectionLength;
-                String text = memory1.memory_read(index);
-                formula_box.Text = formula_box.Text.Insert(selection, text);
-                formula_box.SelectionStart = selection + text.Length;
-                formula_box.SelectionLength = 0;
-            }
-            else {
-                if (answer_box.Text != null)
-                {
-
-                }
-            }
         }
 
         private void mamory2_but_Click(object sender, EventArgs e)
@@ -367,16 +351,15 @@ namespace calculator
         {
             int selection = formula_box.SelectionStart;
             int selection_length = formula_box.SelectionLength;
-            if (selection > 0 && formula_box.Text[formula_box.SelectionStart - 1] >= '0' && formula_box.Text[formula_box.SelectionStart - 1] <= '9')
-            {
-                if (!(e.KeyChar <= '9' && e.KeyChar >= '0')){
-                    formula_box.Text = formula_box.Text.Insert(selection, " ");
-                    formula_box.SelectionStart = selection + 1;
-                    formula_box.SelectionLength = 0;
-                }
-            }
+            
             if (e.KeyChar <= 'z' && e.KeyChar >= 'a')
             {
+                if (selection +selection_length > 0 && formula_box.Text[selection+ selection_length - 1] >= '0' && formula_box.Text[selection + selection_length - 1] <= '9')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection+selection_length, " ");
+                    formula_box.SelectionStart = selection;
+                    formula_box.SelectionLength = selection_length+1;
+                }
                 int m = (int)e.KeyChar;
                 Button b1 = key_button[m - 97];
                 b1.PerformClick();
@@ -411,6 +394,11 @@ namespace calculator
             }
             else if (e.KeyChar == '(')
             {
+                if (selection + selection_length > 0 && formula_box.Text[selection + selection_length - 1] >= '0' && formula_box.Text[selection + selection_length - 1] <= '9')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length, " ");
+                    selection_length += 1;
+                }
                 if (selection_length > 0)
                 {
                     formula_box.Text = formula_box.Text.Insert(selection, "( ");
@@ -421,6 +409,11 @@ namespace calculator
             }
             else if (e.KeyChar == '^')
             {
+                if (selection + selection_length > 0 && formula_box.Text[selection + selection_length - 1] >= '0' && formula_box.Text[selection + selection_length - 1] <= '9')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length, " ");
+                    selection_length += 1;
+                }
                 if (selection_length > 0)
                 {
                     formula_box.Text = formula_box.Text.Insert(selection, "( ");
