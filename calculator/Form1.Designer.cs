@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.formula1 = new Formula();
-            this.memory1 = new Memory();
-
-
             this.formula_box = new System.Windows.Forms.TextBox();
             this.answer_box = new System.Windows.Forms.Label();
             this.q_key = new System.Windows.Forms.Button();

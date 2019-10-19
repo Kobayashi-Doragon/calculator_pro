@@ -19,19 +19,18 @@ namespace calculator
 
         public void memory_save(int number,String data)
         {
+            memory[number] = data;
         }
         public String memory_read(int number) {
-            return "0";
+            return memory[number];
         }
         public void memory_delete(int number)
         {
-            
+            memory[number] = "0";
         }
         public bool memory_check(int number)
         {
-            return this.memory[number] == null;
+            return this.memory[number] != "0";
         }
-
     }
-    
 }
