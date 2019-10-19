@@ -87,14 +87,7 @@ namespace calculator
             table.Rows.Add("重力加速度", "g", "9.80665");
             table.Rows.Add("標準大気圧", "P0P0", "101325");
         }
-        private void update_text() {
-            //formula_box.Text = formula1.getFormula_text();
-            memory1_box.Text = memory1.memory_read(1);
-            memory2_box.Text = memory1.memory_read(2);
-            memory3_box.Text = memory1.memory_read(3);
-            memory4_box.Text = memory1.memory_read(4);
 
-        }
         private void Q_Key_Click(object sender, EventArgs e)
         {
 
@@ -376,9 +369,11 @@ namespace calculator
             int selection_length = formula_box.SelectionLength;
             if (selection > 0 && formula_box.Text[formula_box.SelectionStart - 1] >= '0' && formula_box.Text[formula_box.SelectionStart - 1] <= '9')
             {
-                formula_box.Text = formula_box.Text.Insert(selection, " ");
-                formula_box.SelectionStart = selection + 1;
-                formula_box.SelectionLength = 0;
+                if (!(e.KeyChar <= '9' && e.KeyChar >= '0')){
+                    formula_box.Text = formula_box.Text.Insert(selection, " ");
+                    formula_box.SelectionStart = selection + 1;
+                    formula_box.SelectionLength = 0;
+                }
             }
             if (e.KeyChar <= 'z' && e.KeyChar >= 'a')
             {
@@ -389,7 +384,7 @@ namespace calculator
             }
             else if (e.KeyChar <= '9' && e.KeyChar >= '0')
             {
-                if (selection <formula_box.Text.Length  && formula_box.Text[formula_box.SelectionStart] == ')')
+                if (selection <formula_box.Text.Length-1  && formula_box.Text[formula_box.SelectionStart] == ')')
                 {
                     formula_box.Text = formula_box.Text.Insert(selection, e.KeyChar+" ");
                     formula_box.SelectionStart = selection + 1;
@@ -442,8 +437,7 @@ namespace calculator
             }
         }
 
-        private void search_box_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void search_box_KeyPress(object sender, KeyPressEventArgs e){
             if (e.KeyChar == (char)Keys.Enter)
             {
                 search_result.Items.Clear();
