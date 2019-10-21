@@ -13,24 +13,81 @@ namespace calculator
     public partial class Form1 : Form
     {
         Button[] key_button =new Button[26];
-        private Formula formula1;
-        private Memory memory1;
+        TextBox []memory_box =  new TextBox[4];
+        private Formula formula1 = new Formula();
+        private Memory memory1=new Memory();
         DataSet dataSet = new DataSet();
         DataTable table = new DataTable("Table");
         DataRow[] dRows;
+
         public Form1()
         {
-            
             InitializeComponent();
         }
-        private void update_text() {
-            //formula_box.Text = formula1.getFormula_text();
-            memory1_box.Text = memory1.memory_read(1);
-            memory2_box.Text = memory1.memory_read(2);
-            memory3_box.Text = memory1.memory_read(3);
-            memory4_box.Text = memory1.memory_read(4);
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            key_button[0] = a_key;
+            key_button[1] = b_key;
+            key_button[2] = c_key;
+            key_button[3] = d_key;
+            key_button[4] = e_key;
+            key_button[5] = f_key;
+            key_button[6] = g_key;
+            key_button[7] = h_key;
+            key_button[8] = i_key;
+            key_button[9] = j_key;
+            key_button[10] = k_key;
+            key_button[11] = l_key;
+            key_button[12] = m_key;
+            key_button[13] = n_key;
+            key_button[14] = o_key;
+            key_button[15] = p_key;
+            key_button[16] = q_key;
+            key_button[17] = r_key;
+            key_button[18] = s_key;
+            key_button[19] = t_key;
+            key_button[20] = u_key;
+            key_button[21] = v_key;
+            key_button[22] = w_key;
+            key_button[23] = x_key;
+            key_button[24] = y_key;
+            key_button[25] = z_key;
 
+            memory_box[0] = memory1_box;
+            memory_box[1] = memory2_box;
+            memory_box[2] = memory3_box;
+            memory_box[3] = memory4_box;
+
+            table.Columns.Add("定数名", typeof(String));
+            table.Columns.Add("記号", typeof(String));
+            table.Columns.Add("値", typeof(String));
+
+            // DataSetにDataTableを追加
+            dataSet.Tables.Add(table);
+
+            table.Rows.Add("真空中の光速", "cc", "8.854187817 * 10^(-12)");
+            table.Rows.Add("万有引力定数", "GG", "6.67408 * 10^(-11)");
+            table.Rows.Add("プランク定数", "hh", "6.62606896*10^(−34)");
+            table.Rows.Add("真空の透磁率", "μ0μ0", "4π*10^(−7)");
+            table.Rows.Add("真空の誘電率", "ε0", "8.854187817*10^(−12)");
+            table.Rows.Add("電気素量", "ee", "1.602176487*10^(−19)");
+            table.Rows.Add("電子の質量", "meme", "9.10938215*10^(−31)");
+            table.Rows.Add("電子の比電荷", "e/mee/me", "1.758820174*10^(11)");
+            table.Rows.Add("陽子の質量", "mpmp", "1.672621637*10^(−27)");
+            table.Rows.Add("中性子の質量", "mnmn", "1.674927211*10^(−27)");
+            table.Rows.Add("原子質量単位", "mumu", "1.660538782*10^(−27)");
+            table.Rows.Add("電子の磁気モーメント", "μeμe", "−9.28476377*10^(−24)");
+            table.Rows.Add("陽子の磁気モーメント", "μpμp", "1.410606662*10^(−26)");
+            table.Rows.Add("中性子の磁気モーメント", "μnμn", "9.6623641*10^(−27)");
+            table.Rows.Add("アボガドロ定数", "NANA", "6.02214179*10^(23)");
+            table.Rows.Add("気体定数", "R", "8.314472");
+            table.Rows.Add("理想気体のモル体積", "VmVm", "2.2413996*10^(−2)");
+            table.Rows.Add("ボルツマン定数", "kk", "1.3806504*10^(−23)");
+            table.Rows.Add("ファラデー定数", "F", "9.64853399*10^(4)");
+            table.Rows.Add("重力加速度", "g", "9.80665");
+            table.Rows.Add("標準大気圧", "P0P0", "101325");
         }
+
         private void Q_Key_Click(object sender, EventArgs e)
         {
 
@@ -44,34 +101,68 @@ namespace calculator
         private void e_key_Click(object sender, EventArgs e)
         {
             int selection = formula_box.SelectionStart;
-            formula_box.Text=formula_box.Text.Insert(selection, "e");
+            formula_box.Text=formula_box.Text.Insert(selection, "e ");
             //formula_box.Text += "e";
-            formula_box.SelectionStart = selection+1;
+            formula_box.SelectionStart = selection+2;
             formula_box.SelectionLength = 0;
         }
 
         private void r_key_Click(object sender, EventArgs e)
         {
             int selection = formula_box.SelectionStart;
-            formula_box.Text = formula_box.Text.Insert(selection, "√()");
-            formula_box.SelectionStart = selection+2;
-            formula_box.SelectionLength = 0;
+            int selection_length = formula_box.SelectionLength;
+            if (selection_length > 0)
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, "√ ( ");
+                formula_box.Text = formula_box.Text.Insert(selection + selection_length + 4, ") ");
+                formula_box.SelectionStart = selection + selection_length + 6;
+            }
+            else
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, "√ ( ) ");
+                formula_box.SelectionStart = selection + 4;
+                formula_box.SelectionLength = 0;
+            }
         }
 
         private void y_key_Click(object sender, EventArgs e)
         {
-            string text = formula_box.Text;
-            formula_box.Text = "1/" + text;
-            formula_box.SelectionStart = 1;
-            formula_box.SelectionLength = 0;
+            int selection = formula_box.SelectionStart;
+            int selection_length = formula_box.SelectionLength;
+            if (selection_length > 0)
+            {
+                formula_box.Text = formula_box.Text.Insert(selection, "( ) / ( ");
+                formula_box.Text = formula_box.Text.Insert(selection + selection_length + 8, ") ");
+                formula_box.SelectionStart = selection + 2 ;
+            }
+            else
+            {
+                string text = formula_box.Text;
+                formula_box.Text = "( ) / ( " + text+") ";
+                formula_box.SelectionStart = 2;
+                formula_box.SelectionLength = 0;
+            }
         }
-
         private void t_key_Click(object sender, EventArgs e)
         {
             int selection = formula_box.SelectionStart;
-            formula_box.Text = formula_box.Text.Insert(selection, "tan()");
-            formula_box.SelectionStart = selection + 4;
-            formula_box.SelectionLength = 0;
+            int selection_length = formula_box.SelectionLength;
+            if (selection_length > 0)
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, "tan ( ");
+                formula_box.Text = formula_box.Text.Insert(selection + selection_length + 6, ") ");
+                formula_box.SelectionStart = selection + selection_length + 8;
+            }
+            else
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, "tan ( ) ");
+                formula_box.SelectionStart = selection + 6;
+                formula_box.SelectionLength = 0;
+            }
         }
 
         private void u_key_Click(object sender, EventArgs e)
@@ -97,11 +188,11 @@ namespace calculator
             }
         }
 
-        private void p_key_Click(object sender, EventArgs e)
-        {
+        private void p_key_Click(object sender, EventArgs e){
             int selection = formula_box.SelectionStart;
-            formula_box.Text = formula_box.Text.Insert(selection, "π");
-            formula_box.SelectionStart = selection + 1;
+            formula_box.Text = formula_box.Text.Insert(selection, "π ");
+            //formula_box.Text += "e";
+            formula_box.SelectionStart = selection + 2;
             formula_box.SelectionLength = 0;
         }
 
@@ -113,9 +204,21 @@ namespace calculator
         private void s_key_Click(object sender, EventArgs e)
         {
             int selection = formula_box.SelectionStart;
-            formula_box.Text = formula_box.Text.Insert(selection, "sin()");
-            formula_box.SelectionStart = selection + 4;
-            formula_box.SelectionLength = 0;
+            int selection_length = formula_box.SelectionLength;
+            if (selection_length > 0)
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, "sin ( ");
+                formula_box.Text = formula_box.Text.Insert(selection + selection_length + 6, ") ");
+                formula_box.SelectionStart = selection + selection_length + 8;
+            }
+            else
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, "sin ( ) ");
+                formula_box.SelectionStart = selection + 6;
+                formula_box.SelectionLength = 0;
+            }
         }
 
         private void d_key_Click(object sender, EventArgs e)
@@ -150,11 +253,20 @@ namespace calculator
 
         private void l_key_Click(object sender, EventArgs e)
         {
-
             int selection = formula_box.SelectionStart;
-            formula_box.Text = formula_box.Text.Insert(selection, "log()()");
-            formula_box.SelectionStart = selection + 4;
-            formula_box.SelectionLength = 0;
+            int selection_length = formula_box.SelectionLength;
+            if (selection_length > 0)
+            {
+                formula_box.Text = formula_box.Text.Insert(selection, "log ( ) ( ");
+                formula_box.Text = formula_box.Text.Insert(selection + selection_length + 10, ") ");
+                formula_box.SelectionStart = selection + 6;
+            }
+            else
+            {
+                formula_box.Text = formula_box.Text.Insert(selection, "log ( ) ( ) ");
+                formula_box.SelectionStart = selection + 6;
+                formula_box.SelectionLength = 0;
+            }
         }
 
         private void z_key_Click(object sender, EventArgs e)
@@ -170,14 +282,23 @@ namespace calculator
         private void c_key_Click(object sender, EventArgs e)
         {
             int selection = formula_box.SelectionStart;
-            formula_box.Text = formula_box.Text.Insert(selection, "cos()");
-            formula_box.SelectionStart = selection + 4;
-            formula_box.SelectionLength = 0;
+            int selection_length = formula_box.SelectionLength;
+            if (selection_length > 0)
+            {
+                formula_box.Text = formula_box.Text.Insert(selection, "cos ( ");
+                formula_box.Text = formula_box.Text.Insert(selection+ selection_length+6, ") ");
+                formula_box.SelectionStart = selection +selection_length+ 8;
+            }
+            else{
+                formula_box.Text = formula_box.Text.Insert(selection, "cos ( ) ");
+                formula_box.SelectionStart = selection + 6;
+                formula_box.SelectionLength = 0;
+            }
         }
 
         private void v_key_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void b_key_Click(object sender, EventArgs e)
@@ -192,6 +313,7 @@ namespace calculator
 
         private void m_key_Click(object sender, EventArgs e)
         {
+
         }
 
         private void search_box_MouseUp(object sender, MouseEventArgs e)
@@ -208,7 +330,22 @@ namespace calculator
 
         private void memory1_but_Click(object sender, EventArgs e)
         {
-            formula_box.AppendText(memory1_box.Text);
+            int index = 0;
+            memory1.memory_save(index, memory1_box.Text);
+            if (memory1.memory_check(index)) {//メモリに中身がある場合
+                int selection = formula_box.SelectionStart;
+                int selection_length = formula_box.SelectionLength;
+                String text = memory1.memory_read(index);
+                formula_box.Text = formula_box.Text.Insert(selection, text);
+                formula_box.SelectionStart = selection + text.Length;
+                formula_box.SelectionLength = 0;
+            }
+            else {
+                if (answer_box.Text != null)
+                {
+
+                }
+            }
         }
 
         private void mamory2_but_Click(object sender, EventArgs e)
@@ -228,12 +365,32 @@ namespace calculator
 
         private void formula_box_KeyPress(object sender, KeyPressEventArgs e)
         {
+            int selection = formula_box.SelectionStart;
+            int selection_length = formula_box.SelectionLength;
+            if (selection > 0 && formula_box.Text[formula_box.SelectionStart - 1] >= '0' && formula_box.Text[formula_box.SelectionStart - 1] <= '9')
+            {
+                if (!(e.KeyChar <= '9' && e.KeyChar >= '0')){
+                    formula_box.Text = formula_box.Text.Insert(selection, " ");
+                    formula_box.SelectionStart = selection + 1;
+                    formula_box.SelectionLength = 0;
+                }
+            }
             if (e.KeyChar <= 'z' && e.KeyChar >= 'a')
             {
                 int m = (int)e.KeyChar;
                 Button b1 = key_button[m - 97];
                 b1.PerformClick();
                 e.Handled = true;
+            }
+            else if (e.KeyChar <= '9' && e.KeyChar >= '0')
+            {
+                if (selection <formula_box.Text.Length-1  && formula_box.Text[formula_box.SelectionStart] == ')')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, e.KeyChar+" ");
+                    formula_box.SelectionStart = selection + 1;
+                    formula_box.SelectionLength = 0;
+                    e.Handled = true;
+                }
             }
             else if (e.KeyChar == (char)Keys.Enter|| e.KeyChar == '=')
             {
@@ -244,71 +401,43 @@ namespace calculator
                 }
                 e.Handled = true;
             }
-
+            else if (e.KeyChar == '*'|| e.KeyChar == '/'|| e.KeyChar == '+'|| e.KeyChar == '-')
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, e.KeyChar+" ");
+                formula_box.SelectionStart = selection + 2;
+                formula_box.SelectionLength = 0;
+                e.Handled = true;
+            }
+            else if (e.KeyChar == '(')
+            {
+                if (selection_length > 0)
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, "( ");
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length + 2, ") ");
+                    formula_box.SelectionStart = selection + selection_length +4;
+                    e.Handled = true;
+                }
+            }
+            else if (e.KeyChar == '^')
+            {
+                if (selection_length > 0)
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, "( ");
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length + 2, ") ^ ( )");
+                    formula_box.SelectionStart = selection + selection_length + 8;
+                }
+                else
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, "^ ( ) ");
+                    formula_box.SelectionStart = selection + 4;
+                    formula_box.SelectionLength = 0;
+                }
+                e.Handled = true;
+            }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            key_button[0] = a_key;
-            key_button[1] = b_key;
-            key_button[2] = c_key;
-            key_button[3] = d_key;
-            key_button[4] = e_key;
-            key_button[5] = f_key;
-            key_button[6] = g_key;
-            key_button[7] = h_key;
-            key_button[8] = i_key;
-            key_button[9] = j_key;
-            key_button[10] = k_key;
-            key_button[11] = l_key;
-            key_button[12] = m_key;
-            key_button[13] = n_key;
-            key_button[14] = o_key;
-            key_button[15] = p_key;
-            key_button[16] = q_key;
-            key_button[17] = r_key;
-            key_button[18] = s_key;
-            key_button[19] = t_key;
-            key_button[20] = u_key;
-            key_button[21] = v_key;
-            key_button[22] = w_key;
-            key_button[23] = x_key;
-            key_button[24] = y_key;
-            key_button[25] = z_key;
-
-            table.Columns.Add("定数名",typeof(String));
-            table.Columns.Add("記号", typeof(String));
-            table.Columns.Add("値",  typeof(String));
-
-            // DataSetにDataTableを追加
-            dataSet.Tables.Add(table);
-
-            table.Rows.Add("真空中の光速", "cc", "8.854187817 * 10^(-12)");
-            table.Rows.Add("万有引力定数", "GG", "6.67408 * 10^(-11)");
-            table.Rows.Add("プランク定数", "hh", "6.62606896*10^(−34)");
-            table.Rows.Add("真空の透磁率", "μ0μ0", "4π*10^(−7)");
-            table.Rows.Add("真空の誘電率", "ε0", "8.854187817*10^(−12)");
-            table.Rows.Add("電気素量", "ee", "1.602176487*10^(−19)");
-            table.Rows.Add("電子の質量", "meme", "9.10938215*10^(−31)");
-            table.Rows.Add("電子の比電荷", "e/mee/me", "1.758820174*10^(11)");
-            table.Rows.Add("陽子の質量", "mpmp", "1.672621637*10^(−27)");
-           
-            table.Rows.Add("中性子の質量", "mnmn", "1.674927211*10^(−27)");
-            table.Rows.Add("原子質量単位", "mumu", "1.660538782*10^(−27)");
-            table.Rows.Add("電子の磁気モーメント", "μeμe", "−9.28476377*10^(−24)");
-            table.Rows.Add("陽子の磁気モーメント", "μpμp", "1.410606662*10^(−26)");
-            table.Rows.Add("中性子の磁気モーメント", "μnμn", "9.6623641*10^(−27)");
-            table.Rows.Add("アボガドロ定数", "NANA", "6.02214179*10^(23)");
-            table.Rows.Add("気体定数", "R", "8.314472");
-            table.Rows.Add("理想気体のモル体積", "VmVm", "2.2413996*10^(−2)");
-            table.Rows.Add("ボルツマン定数", "kk", "1.3806504*10^(−23)");
-            table.Rows.Add("ファラデー定数", "F", "9.64853399*10^(4)");
-            table.Rows.Add("重力加速度", "g", "9.80665");
-            table.Rows.Add("標準大気圧", "P0P0", "101325");
-        }
-
-        private void search_box_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void search_box_KeyPress(object sender, KeyPressEventArgs e){
             if (e.KeyChar == (char)Keys.Enter)
             {
                 search_result.Items.Clear();
@@ -331,8 +460,7 @@ namespace calculator
             }
         }
 
-        private void search_result_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void search_result_SelectedIndexChanged(object sender, EventArgs e){
             int selection = formula_box.SelectionStart;
             string search_result_num = dRows[search_result.SelectedIndex][2].ToString();
             formula_box.Text = formula_box.Text.Insert(selection,search_result_num);

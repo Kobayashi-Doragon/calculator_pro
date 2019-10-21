@@ -8,40 +8,29 @@ namespace calculator
 {
     class Memory
     {
-        private String[] memory = new String[4];//フォームに反映するためゲッタ必要かも----------------------------
+        private String[] memory = new String[4];
 
-        //コンストラクタ　nullでメモリを初期化
         public Memory()
         {
             int i;
             for (i = 0; i < 4; i++)
-                this.memory[i] = null;
+                memory[i] = "0";
         }
 
-        //指定番号のメモリにデータを格納
-        void memory_save(int number, String data)
+        public void memory_save(int number,String data)
         {
-            this.memory[number] = data;
+            memory[number] = data;
         }
-
-        //指定番号のメモリのデータを返す
-        String memory_read(int number)
+        public String memory_read(int number) {
+            return memory[number];
+        }
+        public void memory_delete(int number)
         {
-            return this.memory[number];
+            memory[number] = "0";
         }
-
-        //指定番号のメモリのデータを削除
-        void memory_delete(int number)
+        public bool memory_check(int number)
         {
-            this.memory[number] = null;
+            return this.memory[number] != "0";
         }
-
-        //指定番号のメモリにデータがあるか
-        bool memory_check(int number)//どこで?-----------------------------------
-        {
-            return this.memory[number] == null;
-        }
-
     }
-
 }

@@ -9,6 +9,7 @@ namespace calculator
     class Formula
     {
         private string formula_text;
+        private int count;
 
         public Formula()
         {
