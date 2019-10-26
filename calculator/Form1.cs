@@ -313,12 +313,6 @@ namespace calculator
 
         private void m_key_Click(object sender, EventArgs e)
         {
-            for(int i=0;i<4;i++){
-                if(!memory1.memory_check(i)){
-                    memory1.memory_save(i,answer_box.Text);
-                }
-            }
-            //
 
         }
 
