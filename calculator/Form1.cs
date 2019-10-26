@@ -313,6 +313,12 @@ namespace calculator
 
         private void m_key_Click(object sender, EventArgs e)
         {
+            for(int i=0;i<4;i++){
+                if(!memory1.memory_check(i)){
+                    memory1.memory_save(i,answer_box.Text);
+                }
+            }
+            //
 
         }
 
@@ -396,7 +402,7 @@ namespace calculator
             {
                 formula1.setFomula_text(formula_box.Text);
                 if (formula1.formula_check()) {
-                    int answer = formula1.calculation();
+                    double answer = formula1.calculation();
                     answer_box.Text = answer.ToString();
                 }
                 e.Handled = true;
