@@ -70,14 +70,14 @@ namespace calculator
                             }
                             rpn[count]=st.Pop();
                             count++;
-                            preoperator=true;
+                            preoperator=false;
                         }
                         else
                         {
                             if(!preoperator){
                                 multi_add(rpn);
                             }
-                            preoperator=false;
+                            preoperator=true;
                             st.Push("|");
                         }
                         break;
