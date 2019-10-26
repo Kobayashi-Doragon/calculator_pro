@@ -137,8 +137,7 @@ namespace calculator
                 formula_box.Text = formula_box.Text.Insert(selection + selection_length + 8, ") ");
                 formula_box.SelectionStart = selection + 2 ;
             }
-            else
-            {
+            else{
                 string text = formula_box.Text;
                 formula_box.Text = "( ) / ( " + text+") ";
                 formula_box.SelectionStart = 2;
@@ -198,7 +197,22 @@ namespace calculator
 
         private void a_key_Click(object sender, EventArgs e)
         {
-
+            int selection = formula_box.SelectionStart;
+            int selection_length = formula_box.SelectionLength;
+            if (selection_length > 0)
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, "| ");
+                formula_box.Text = formula_box.Text.Insert(selection + selection_length + 2, "| ");
+                formula_box.SelectionStart = selection + selection_length + 4;
+            }
+            else
+            {
+                selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, "| | ");
+                formula_box.SelectionStart = selection + 2;
+                formula_box.SelectionLength = 0;
+            }
         }
 
         private void s_key_Click(object sender, EventArgs e)
@@ -308,12 +322,26 @@ namespace calculator
 
         private void n_key_Click(object sender, EventArgs e)
         {
-
+            int i;
+            for (i = 0; i < 4; i++)
+            {
+                if (memory1.memory_check(i))
+                    break;
+            }
+            if (answer_box.Text != "0")
+                memory1.memory_save(i, answer_box.Text);
         }
 
-        private void m_key_Click(object sender, EventArgs e)
-        {
+        private void m_key_Click(object sender, EventArgs e){
+            int i;
 
+            for (i = 0; i < 4; i++)
+            {
+                if (memory1.memory_check(i))
+                    break;
+            }
+            if (answer_box.Text != "0")
+                memory1.memory_save(i, answer_box.Text);
         }
 
         private void search_box_MouseUp(object sender, MouseEventArgs e)
@@ -330,21 +358,107 @@ namespace calculator
 
         private void memory1_but_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            memory1.memory_save(i, memory1_box.Text);
+            if (!memory1.memory_check(i)){
+                string text = memory1.memory_read(i);
+                int length = text.Length;
+                int selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, text);
+                selection += length;
+                if (selection < formula_box.Text.Length - 1 && formula_box.Text[selection+length] == ')'){
+                    formula_box.Text = formula_box.Text.Insert(selection," ");
+                    formula_box.SelectionStart = selection + 1;
+                    formula_box.SelectionLength = 0;
+                }
+            }
+            else
+            {
+                if (answer_box.Text != "0")
+                {
+                    memory1.memory_save(i, answer_box.Text);
+                }
+            }
         }
 
         private void mamory2_but_Click(object sender, EventArgs e)
         {
-            formula_box.AppendText(memory2_box.Text);
+            int i = 1;
+            memory1.memory_save(i, memory2_box.Text);
+            if (!memory1.memory_check(i))
+            {
+                string text = memory1.memory_read(i);
+                int length = text.Length;
+                int selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, text);
+                selection += length;
+                if (selection < formula_box.Text.Length - 1 && formula_box.Text[selection + length] == ')')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, " ");
+                    formula_box.SelectionStart = selection + 1;
+                    formula_box.SelectionLength = 0;
+                }
+            }
+            else
+            {
+                if (answer_box.Text != "0")
+                {
+                    memory1.memory_save(i, answer_box.Text);
+                }
+            }
         }
 
-        private void mamory3_but_Click(object sender, EventArgs e)
-        {
-            formula_box.AppendText(memory3_box.Text);
+        private void memory3_but_Click(object sender, EventArgs e){
+            int i = 2;
+            memory1.memory_save(i, memory3_box.Text);
+            if (!memory1.memory_check(i))
+            {
+                string text = memory1.memory_read(i);
+                int length = text.Length;
+                int selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, text);
+                selection += length;
+                if (selection < formula_box.Text.Length - 1 && formula_box.Text[selection + length] == ')')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, " ");
+                    formula_box.SelectionStart = selection + 1;
+                    formula_box.SelectionLength = 0;
+                }
+            }
+            else
+            {
+                if (answer_box.Text != "0")
+                {
+                    memory1.memory_save(i, answer_box.Text);
+                }
+            }
         }
 
         private void mamory4_but_Click(object sender, EventArgs e)
         {
-            formula_box.AppendText(memory4_box.Text);
+            int i = 3;
+            memory1.memory_save(i, memory4_box.Text);
+            if (!memory1.memory_check(i))
+            {
+                string text = memory1.memory_read(i);
+                int length = text.Length;
+                int selection = formula_box.SelectionStart;
+                formula_box.Text = formula_box.Text.Insert(selection, text);
+                selection += length;
+                if (selection < formula_box.Text.Length - 1 && formula_box.Text[selection + length] == ')')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, " ");
+                    formula_box.SelectionStart = selection + 1;
+                    formula_box.SelectionLength = 0;
+                }
+            }
+            else
+            {
+                if (answer_box.Text != "0")
+                {
+                    memory1.memory_save(i, answer_box.Text);
+                }
+            }
         }
 
         private void formula_box_KeyPress(object sender, KeyPressEventArgs e)
@@ -354,21 +468,32 @@ namespace calculator
             
             if (e.KeyChar <= 'z' && e.KeyChar >= 'a')
             {
-                if (selection +selection_length > 0 && formula_box.Text[selection+ selection_length - 1] >= '0' && formula_box.Text[selection + selection_length - 1] <= '9')
+                if (selection_length+selection > 0 && (formula_box.Text[selection+selection_length-1] <= '9' && formula_box.Text[selection+selection_length-1] >= '0'))
                 {
-                    formula_box.Text = formula_box.Text.Insert(selection+selection_length, " ");
-                    formula_box.SelectionStart = selection;
-                    formula_box.SelectionLength = selection_length+1;
+                    formula_box.Text = formula_box.Text.Insert(selection+selection_length," ");
+                    if (selection_length > 0)
+                        selection_length++;
+                    else
+                    {
+                        formula_box.SelectionStart = selection + 1;
+                        selection++;
+                        formula_box.SelectionLength = 0;
+                    }
                 }
                 int m = (int)e.KeyChar;
                 Button b1 = key_button[m - 97];
                 b1.PerformClick();
                 e.Handled = true;
             }
-            else if (e.KeyChar <= '9' && e.KeyChar >= '0')
-            {
-                if (selection <formula_box.Text.Length-1  && formula_box.Text[formula_box.SelectionStart] == ')')
-                {
+            else if (e.KeyChar <= '9' && e.KeyChar >= '0') {
+                if (selection>0 && formula_box.Text[selection-1] != ' ' && (formula_box.Text[selection-1] <= '0'|| formula_box.Text[selection - 1] >= '9')){
+                    formula_box.Text = formula_box.Text.Insert(selection," ");
+                    formula_box.SelectionStart = selection + 1;
+                    formula_box.SelectionLength = 0;
+                }
+                selection = formula_box.SelectionStart;
+                selection_length = formula_box.SelectionLength;
+                if (selection <formula_box.Text.Length-1  && (formula_box.Text[selection] == ')' || formula_box.Text[selection] == '|')){
                     formula_box.Text = formula_box.Text.Insert(selection, e.KeyChar+" ");
                     formula_box.SelectionStart = selection + 1;
                     formula_box.SelectionLength = 0;
@@ -386,7 +511,26 @@ namespace calculator
             }
             else if (e.KeyChar == '*'|| e.KeyChar == '/'|| e.KeyChar == '+'|| e.KeyChar == '-')
             {
+                if (selection + selection_length > 0 && formula_box.Text[selection + selection_length - 1] != ' ')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length, " ");
+                    if (selection_length > 0)
+                        selection_length++;
+                    else
+                    {
+                        formula_box.SelectionStart = selection + 1;
+                        selection++;
+                        formula_box.SelectionLength = 0;
+                    }
+                }
+                if (selection_length > 0)
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, "( ");
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length + 2, ") ");
+                    formula_box.SelectionStart = selection + selection_length + 4;
+                }
                 selection = formula_box.SelectionStart;
+                selection_length = formula_box.SelectionLength;
                 formula_box.Text = formula_box.Text.Insert(selection, e.KeyChar+" ");
                 formula_box.SelectionStart = selection + 2;
                 formula_box.SelectionLength = 0;
@@ -394,38 +538,86 @@ namespace calculator
             }
             else if (e.KeyChar == '(')
             {
-                if (selection + selection_length > 0 && formula_box.Text[selection + selection_length - 1] >= '0' && formula_box.Text[selection + selection_length - 1] <= '9')
+                if (selection + selection_length > 0 && formula_box.Text[selection + selection_length - 1] != ' ')
                 {
                     formula_box.Text = formula_box.Text.Insert(selection + selection_length, " ");
-                    selection_length += 1;
+                    if (selection_length > 0)
+                        selection_length++;
+                    else
+                    {
+                        formula_box.SelectionStart = selection + 1;
+                        selection++;
+                        formula_box.SelectionLength = 0;
+                    }
                 }
                 if (selection_length > 0)
                 {
                     formula_box.Text = formula_box.Text.Insert(selection, "( ");
                     formula_box.Text = formula_box.Text.Insert(selection + selection_length + 2, ") ");
-                    formula_box.SelectionStart = selection + selection_length +4;
+                    formula_box.SelectionStart = selection + selection_length + 4;
                     e.Handled = true;
                 }
             }
-            else if (e.KeyChar == '^')
+            else if (e.KeyChar == ')')
             {
-                if (selection + selection_length > 0 && formula_box.Text[selection + selection_length - 1] >= '0' && formula_box.Text[selection + selection_length - 1] <= '9')
+                if (formula_box.Text[selection - 1] != ' ')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, " ");
+                    formula_box.SelectionStart = selection + 1;
+                    selection++;
+                    formula_box.SelectionLength = 0;
+                }
+                
+            }
+            else if (e.KeyChar == '|')
+            {
+                if (selection + selection_length > 0 && formula_box.Text[selection + selection_length - 1] != ' ')
                 {
                     formula_box.Text = formula_box.Text.Insert(selection + selection_length, " ");
-                    selection_length += 1;
+                    if (selection_length > 0)
+                        selection_length++;
+                    else
+                    {
+                        formula_box.SelectionStart = selection + 1;
+                        selection++;
+                        formula_box.SelectionLength = 0;
+                    }
+                }
+                if (selection_length > 0)
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection, "| ");
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length + 2, "| ");
+                    formula_box.SelectionStart = selection + selection_length + 4;
+                    e.Handled = true;
+                }
+
+            }
+            else if (e.KeyChar == '^')
+            {
+                if (selection + selection_length > 0 && formula_box.Text[selection + selection_length - 1] != ' ')
+                {
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length, " ");
+                    if (selection_length > 0)
+                        selection_length++;
+                    else
+                    {
+                        formula_box.SelectionStart = selection + 1;
+                        selection++;
+                        formula_box.SelectionLength = 0;
+                    }
                 }
                 if (selection_length > 0)
                 {
                     formula_box.Text = formula_box.Text.Insert(selection, "( ");
-                    formula_box.Text = formula_box.Text.Insert(selection + selection_length + 2, ") ^ ( )");
-                    formula_box.SelectionStart = selection + selection_length + 8;
+                    formula_box.Text = formula_box.Text.Insert(selection + selection_length + 2, ") ");
+                    formula_box.SelectionStart = selection + selection_length + 4;
+                    e.Handled = true;
                 }
-                else
-                {
-                    formula_box.Text = formula_box.Text.Insert(selection, "^ ( ) ");
-                    formula_box.SelectionStart = selection + 4;
-                    formula_box.SelectionLength = 0;
-                }
+                selection = formula_box.SelectionStart;
+                selection_length = formula_box.SelectionLength;
+                formula_box.Text = formula_box.Text.Insert(selection, "^ ( ) ");
+                formula_box.SelectionStart = selection + 4;
+                formula_box.SelectionLength = 0;
                 e.Handled = true;
             }
         }
@@ -452,7 +644,6 @@ namespace calculator
                 }
             }
         }
-
         private void search_result_SelectedIndexChanged(object sender, EventArgs e){
             int selection = formula_box.SelectionStart;
             string search_result_num = dRows[search_result.SelectedIndex][2].ToString();
@@ -460,5 +651,7 @@ namespace calculator
             formula_box.SelectionStart = selection + search_result_num.Length;
             formula_box.SelectionLength = 0;
         }
+
+
     }
 }

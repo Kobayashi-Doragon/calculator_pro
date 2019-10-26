@@ -195,6 +195,7 @@
             this.answer_box.Name = "answer_box";
             this.answer_box.Size = new System.Drawing.Size(1000, 55);
             this.answer_box.TabIndex = 1;
+            this.answer_box.Text = "0";
             // 
             // q_key
             // 
@@ -428,9 +429,9 @@
             this.y_cmd.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.y_cmd.Location = new System.Drawing.Point(3, 3);
             this.y_cmd.Name = "y_cmd";
-            this.y_cmd.Size = new System.Drawing.Size(50, 24);
+            this.y_cmd.Size = new System.Drawing.Size(39, 24);
             this.y_cmd.TabIndex = 4;
-            this.y_cmd.Text = "なし";
+            this.y_cmd.Text = "()/";
             // 
             // y_index
             // 
@@ -1428,12 +1429,13 @@
             this.memory3_but.TabIndex = 48;
             this.memory3_but.Text = "M3";
             this.memory3_but.UseVisualStyleBackColor = true;
+            this.memory3_but.Click += new System.EventHandler(this.memory3_but_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1340, 402);
+            this.ClientSize = new System.Drawing.Size(1337, 402);
             this.Controls.Add(this.memory3_but);
             this.Controls.Add(this.memory4_box);
             this.Controls.Add(this.memory3_box);
