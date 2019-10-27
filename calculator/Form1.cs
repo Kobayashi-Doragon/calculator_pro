@@ -19,7 +19,7 @@ namespace calculator
         DataSet dataSet = new DataSet();
         DataTable table = new DataTable("Table");
         DataRow[] dRows;
-
+        bool memory_counter = false;//falseはメモリ書き出し、trueはメモリ読み取り
         public Form1()
         {
             InitializeComponent();
@@ -86,6 +86,7 @@ namespace calculator
             table.Rows.Add("ファラデー定数", "F", "9.64853399*10^(4)");
             table.Rows.Add("重力加速度", "g", "9.80665");
             table.Rows.Add("標準大気圧", "P0P0", "101325");
+            memory_select_box.Hide();
         }
 
         private void Q_Key_Click(object sender, EventArgs e)
@@ -320,28 +321,17 @@ namespace calculator
 
         }
 
-        private void n_key_Click(object sender, EventArgs e)
-        {
-            int i;
-            for (i = 0; i < 4; i++)
-            {
-                if (memory1.memory_check(i))
-                    break;
-            }
-            if (answer_box.Text != "0")
-                memory1.memory_save(i, answer_box.Text);
+        private void n_key_Click(object sender, EventArgs e){
+            memory_select_box.Show();
+            memory_select_box.Select();
+            memory_counter = false;
+            
         }
 
         private void m_key_Click(object sender, EventArgs e){
-            int i;
-
-            for (i = 0; i < 4; i++)
-            {
-                if (memory1.memory_check(i))
-                    break;
-            }
-            if (answer_box.Text != "0")
-                memory1.memory_save(i, answer_box.Text);
+            memory_select_box.Show();
+            memory_select_box.Select();
+            memory_counter = true;
         }
 
         private void search_box_MouseUp(object sender, MouseEventArgs e)
@@ -380,7 +370,6 @@ namespace calculator
                 }
             }
         }
-
         private void mamory2_but_Click(object sender, EventArgs e)
         {
             int i = 1;
@@ -567,7 +556,6 @@ namespace calculator
                     selection++;
                     formula_box.SelectionLength = 0;
                 }
-                
             }
             else if (e.KeyChar == '|')
             {
@@ -652,6 +640,91 @@ namespace calculator
             formula_box.SelectionLength = 0;
         }
 
+        private void memory_select_box_KeyPress(object sender, KeyPressEventArgs e){
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                string text = memory_select_box.Text;
+                if (memory_counter)
+                {
+                    if (text == "") {
+                        int i;
+                        for (i=0;i<4;i++) {
+                            if (memory1.memory_check(i)) {
+                                memory1.memory_save(i, answer_box.Text);
+                            }
+                        }
+                    }
+                    int memory_num;
+                    if (int.TryParse(text, out memory_num))
+                    {
+                        switch (memory_num)
+                        {
+                            case 1:
+                                memory1.memory_save(0, answer_box.Text);
+                                break;
+                            case 2:
+                                memory1.memory_save(1, answer_box.Text);
+                                break;
+                            case 3:
+                                memory1.memory_save(2, answer_box.Text);
+                                break;
+                            case 4:
+                                memory1.memory_save(3, answer_box.Text);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    memory1.memory_save(0, memory1_box.Text);
+                    memory1.memory_save(1, memory2_box.Text);
+                    memory1.memory_save(2, memory3_box.Text);
+                    memory1.memory_save(3, memory4_box.Text);
+                }
+                else {
+                    int memory_num;
+                    string add_text="0";
+                    if (text == "")
+                    {
+                        int i;
+                        for (i = 0; i < 4; i++)
+                        {
+                            if (!memory1.memory_check(i))
+                            {
+                                add_text=memory1.memory_read(i);
+                            }
+                        }
+                    }
+                    if (int.TryParse(text, out memory_num))
+                    {
+                        switch (memory_num)
+                        {
+                            case 1:
+                                add_text = memory1.memory_read(0);
+                                break;
+                            case 2:
+                                add_text = memory1.memory_read(1);
+                                break;
+                            case 3:
+                                add_text = memory1.memory_read(2);
+                                break;
+                            case 4:
+                                add_text = memory1.memory_read(3);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (add_text != "0"){
+                        int selection = formula_box.SelectionStart;
+                        formula_box.Text = formula_box.Text.Insert(selection,add_text);
+                        formula_box.SelectionStart += add_text.Length;
 
+                    }
+                }
+                formula_box.Select();
+                memory_select_box.Text = "";
+                memory_select_box.Hide();
+            }
+        }
     }
 }
