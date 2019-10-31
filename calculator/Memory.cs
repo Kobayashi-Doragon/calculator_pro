@@ -30,7 +30,7 @@ namespace calculator
         }
         public bool memory_check(int number)
         {
-            return this.memory[number] != "0";
+            return this.memory[number] == "0";
         }
     }
 }
