@@ -675,10 +675,10 @@ namespace calculator
                                 break;
                         }
                     }
-                    memory1.memory_save(0, memory1_box.Text);
-                    memory1.memory_save(1, memory2_box.Text);
-                    memory1.memory_save(2, memory3_box.Text);
-                    memory1.memory_save(3, memory4_box.Text);
+                    memory1_box.Text = memory1.memory_read(0);
+                    memory2_box.Text = memory1.memory_read(1);
+                    memory3_box.Text = memory1.memory_read(2);
+                    memory4_box.Text = memory1.memory_read(3);
                 }
                 else {
                     int memory_num;
