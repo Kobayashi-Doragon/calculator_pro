@@ -717,7 +717,7 @@ namespace calculator
                     if (add_text != "0"){
                         int selection = formula_box.SelectionStart;
                         formula_box.Text = formula_box.Text.Insert(selection,add_text);
-                        formula_box.SelectionStart += add_text.Length;
+                        formula_box.SelectionStart =selection + add_text.Length;
 
                     }
                 }
